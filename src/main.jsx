@@ -7,6 +7,8 @@ import Inventory from './pages/Inventory.jsx'
 import RemainingItems from './pages/RemainingItems.jsx'
 import RemovedItems from './pages/RemovedItems.jsx'
 import { RouterProvider } from 'react-router'
+import { Provider } from 'react-redux'
+import store from './store.js'
 const router=createBrowserRouter([{
   path:'/',
   element:<App/>
@@ -25,6 +27,9 @@ const router=createBrowserRouter([{
 }])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>
     <RouterProvider router={router}/>
+      </Provider>
+
   </StrictMode>,
 )
