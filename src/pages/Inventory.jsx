@@ -5,7 +5,7 @@ import { inventoryItems } from "../actions";
 
 const Inventory=()=>{
     const inventory=useSelector(state=>state.inventory)
-    const totalInventory=inventory.reduce((acc,curr)=>acc+curr.itemQuantity,0)
+    const totalInventory=inventory?.reduce((acc,curr)=>acc+curr.itemQuantity,0)
 
     const dispatch=useDispatch()
 useEffect(()=>{dispatch(inventoryItems())},[dispatch])
