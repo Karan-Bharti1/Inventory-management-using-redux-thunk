@@ -1,15 +1,30 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItems } from "../actions";
 
 
  const AddNewItems=()=>{
     const [inventoryData,setInventoryData]=useState({
         itemName:"",
-        itemQuantity:null,
+        itemQuantity:"",
         entryType:""
 
     })
+    const [successMessage,setSuccessMessage]=useState("")
+    const dispatch=useDispatch()
     const handleChange=(key,value)=>{
-setInventoryData({...inventoryData,[key]:value})
+setInventoryData(key==="itemQuantity"?{...inventoryData,itemQuantity:parseFloat(value)}:{...inventoryData,[key]:value})
+    }
+    const formHandler=(e)=>{
+e.preventDefault()
+dispatch(addItems(inventoryData))
+setInventoryData({itemName:"",
+itemQuantity:"",
+entryType:""})
+setSuccessMessage("Data Updated")
+setTimeout(()=>{
+setSuccessMessage("")
+},1500)
     }
     return(<main className="container">
    <h1>Inventory Admin App</h1>
@@ -24,8 +39,9 @@ setInventoryData({...inventoryData,[key]:value})
 <option value="Add to storage">Add to storage</option>
 <option value="Remove from storage">Remove from storage</option>
 </select>
-<button className="btn btn-primary my-2">Add Item Data</button>
+<button className="btn btn-primary my-2" onClick={formHandler}>Add Item Data</button>
    </form>
+   <h2>{successMessage}</h2>
     </main>)
 }
 export default AddNewItems;
